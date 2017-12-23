@@ -12,7 +12,7 @@ fn string_to_digits(s: &str) -> Vec<u8> {
 /// # Examples
 ///
 /// ```
-/// # use advent_of_code::day_1::sum_match_nexts;
+/// # use aoc_2017::day_1::sum_match_nexts;
 /// assert_eq!(sum_match_nexts("1122"), 3);
 /// assert_eq!(sum_match_nexts("1111"), 4);
 /// assert_eq!(sum_match_nexts("1234"), 0);

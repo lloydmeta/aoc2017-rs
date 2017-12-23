@@ -1,10 +1,9 @@
-
 /// Returns the checksum of a matrix
 ///
 /// # Examples
 ///
 /// ```
-/// # use advent_of_code::day_2::*;
+/// # use aoc_2017::day_2::*;
 /// let m =
 /// "5\t1\t9\t5
 /// 7\t5\t3
@@ -38,10 +37,11 @@ fn string_to_matrix(s: &str) -> Vec<Vec<isize>> {
     s.split("\n")
         .map(|v| {
             v.split("\t")
-            .into_iter()
-            .filter_map(|s_i| s_i.parse().ok())
-            .collect()
-        }).collect()
+                .into_iter()
+                .filter_map(|s_i| s_i.parse().ok())
+                .collect()
+        })
+        .collect()
 }
 
 #[cfg(test)]
@@ -50,27 +50,21 @@ mod tests {
 
     #[test]
     fn matrix_checksum_test() {
-        let checksum = matrix_checksum(
-            &vec![
-                vec![5, 1, 9, 5],
-                vec![7, 5, 3],
-                vec![2, 4, 6, 8]
-            ]
-        );
+        let checksum = matrix_checksum(&vec![vec![5, 1, 9, 5], vec![7, 5, 3], vec![2, 4, 6, 8]]);
         assert_eq!(checksum, 18);
     }
 
     #[test]
     fn string_to_matrix_test() {
         let parsed = string_to_matrix(
-"5\t1\t9\t5
+            "5\t1\t9\t5
 7\t5\t3
-2\t4\t6\t8");
-        assert_eq!(parsed, vec![
-                vec![5, 1, 9, 5],
-                vec![7, 5, 3],
-                vec![2, 4, 6, 8]
-            ])
+2\t4\t6\t8",
+        );
+        assert_eq!(
+            parsed,
+            vec![vec![5, 1, 9, 5], vec![7, 5, 3], vec![2, 4, 6, 8]]
+        )
     }
 
 }
