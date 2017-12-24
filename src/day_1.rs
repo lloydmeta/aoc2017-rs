@@ -1,4 +1,4 @@
-static RADIX: u32 = 10;
+const RADIX: u32 = 10;
 
 fn string_to_digits(s: &str) -> Vec<u8> {
     s.chars()

@@ -1,5 +1,7 @@
 /// Given an index in a number spiral, return the number of
 /// steps to the centre
+///
+/// # Examples
 /// ```
 /// # use aoc_2017::day_3::*;
 /// assert_eq!(steps_to_centre(1).unwrap(), 0);
