@@ -8,13 +8,13 @@ const PASSPHRASE_SPLIT_WITH: &str = " ";
 /// # Examples
 /// ```
 /// # use aoc_2017::day_4::*;
-/// assert_eq!(is_valid_passphrase("aa bb cc dd ee"), true);
-/// assert_eq!(is_valid_passphrase("aa bb cc dd aa"), false);
-/// assert_eq!(is_valid_passphrase("aa bb cc dd aaa"), true);
+/// assert_eq!(are_valid_passphrases("aa bb cc dd ee"), true);
+/// assert_eq!(are_valid_passphrases("aa bb cc dd aa"), false);
+/// assert_eq!(are_valid_passphrases("aa bb cc dd aaa"), true);
 /// ```
-pub fn is_valid_passphrase<'a>(passphrase: &'a str) -> bool {
+pub fn are_valid_passphrases<'a>(passphrases_str: &'a str) -> bool {
     let h_set: HashSet<&'a str> = HashSet::new();
-    is_valid_passphrase_inner(passphrase, h_set)
+    are_valid_passphrases_inner(passphrases_str, h_set)
 }
 
 /// Returns whether or not a given passphrase is valid
@@ -23,30 +23,30 @@ pub fn is_valid_passphrase<'a>(passphrase: &'a str) -> bool {
 /// # Examples
 /// ```
 /// # use aoc_2017::day_4::*;
-/// assert_eq!(is_valid_passphrase_annagram_free("abcde fghij"), true);
-/// assert_eq!(is_valid_passphrase_annagram_free("abcde xyz ecdab"), false);
-/// assert_eq!(is_valid_passphrase_annagram_free("a ab abc abd abf abj"), true);
-/// assert_eq!(is_valid_passphrase_annagram_free("iiii oiii ooii oooi oooo"), true);
-/// assert_eq!(is_valid_passphrase_annagram_free("oiii ioii iioi iiio"), false);
+/// assert_eq!(are_valid_passphrases_annagram_free("abcde fghij"), true);
+/// assert_eq!(are_valid_passphrases_annagram_free("abcde xyz ecdab"), false);
+/// assert_eq!(are_valid_passphrases_annagram_free("a ab abc abd abf abj"), true);
+/// assert_eq!(are_valid_passphrases_annagram_free("iiii oiii ooii oooi oooo"), true);
+/// assert_eq!(are_valid_passphrases_annagram_free("oiii ioii iioi iiio"), false);
 /// ```
-pub fn is_valid_passphrase_annagram_free<'a>(passphrase: &'a str) -> bool {
+pub fn are_valid_passphrases_annagram_free<'a>(passphrases_str: &'a str) -> bool {
     let h_set: HashSet<Vec<(char, u64)>> = HashSet::new();
-    is_valid_passphrase_inner(passphrase, h_set)
+    are_valid_passphrases_inner(passphrases_str, h_set)
 }
 
-fn is_valid_passphrase_inner<'a, V>(passphrase: &'a str, validator: V) -> bool
+fn are_valid_passphrases_inner<'a, V>(passphrases_str: &'a str, validator: V) -> bool
 where
     V: PassphrasesValidator<'a>,
 {
-    let split_passphrase: Vec<_> = passphrase
+    let passphrases: Vec<_> = passphrases_str
         .split(PASSPHRASE_SPLIT_WITH)
         .map(|s| s.trim())
         .collect();
-    let validated = split_passphrase.iter().fold(validator, |mut acc, next| {
+    let validated = passphrases.iter().fold(validator, |mut acc, next| {
         acc.register_phrase(next);
         acc
     });
-    validated.validate_phrases(&split_passphrase)
+    validated.validate_phrases(&passphrases)
 }
 
 trait PassphrasesValidator<'a> {

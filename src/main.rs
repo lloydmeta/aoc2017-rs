@@ -38,11 +38,11 @@ fn main_result() -> Result<(), Box<Error>> {
     let passphrases: Vec<_> = DAY_4_INPUT.trim().split("\n").collect();
     let valid_passphrases_1 = passphrases
         .iter()
-        .filter(|s| is_valid_passphrase(s))
+        .filter(|s| are_valid_passphrases(s))
         .count();
     let valid_passphrases_2 = passphrases
         .iter()
-        .filter(|s| is_valid_passphrase_annagram_free(s))
+        .filter(|s| are_valid_passphrases_annagram_free(s))
         .count();
     println!("Solution 1: {}\n", valid_passphrases_1);
     println!("Solution 2: {}\n", valid_passphrases_2);
