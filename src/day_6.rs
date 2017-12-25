@@ -36,7 +36,7 @@ impl RedistributionCycles {
     /// ```
     /// # use aoc_2017::day_6::*;
     /// let mut r = RedistributionCycles::new("0\t2\t7\t0");
-    /// r.redist();
+    /// r.redist().unwrap();
     /// assert_eq!(r.loop_size(), Ok(LoopCycle(4)));
     /// ```
     pub fn loop_size(&self) -> Result<LoopCycle, &str> {

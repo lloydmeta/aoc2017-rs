@@ -9,6 +9,7 @@ use aoc_2017::day_3::*;
 use aoc_2017::day_4::*;
 use aoc_2017::day_5::*;
 use aoc_2017::day_6::*;
+use aoc_2017::day_7::*;
 
 fn main() {
     match main_result() {
@@ -58,6 +59,16 @@ fn main_result() -> Result<(), Box<Error>> {
     let mut redistributer = RedistributionCycles::new(DAY_6_INPUT);
     println!("Solution 1: {:?}\n", redistributer.redist()?);
     println!("Solution 2: {:?}\n", redistributer.loop_size()?);
+
+    println!("*** Day 7: Recursive Circus ***");
+    println!("Input: {}", DAY_7_INPUT);
+    let tree = Node::from_str(DAY_7_INPUT)?;
+    println!("Solution 1: {:?}\n", tree.name);
+    let with_kid_weights = NodeWithChildrenWeight::build(&tree);
+    println!(
+        "Solution 2: {:?}\n",
+        with_kid_weights.smallest_rebalanced_children_weight()
+    );
 
     Ok(())
 }
