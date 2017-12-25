@@ -79,3 +79,5 @@ mod tests {
     }
 
 }
+
+pub const DAY_3_INPUT: u64 = 368078;
