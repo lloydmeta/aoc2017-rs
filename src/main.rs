@@ -8,6 +8,7 @@ use aoc_2017::day_2::*;
 use aoc_2017::day_3::*;
 use aoc_2017::day_4::*;
 use aoc_2017::day_5::*;
+use aoc_2017::day_6::*;
 
 fn main() {
     match main_result() {
@@ -51,6 +52,12 @@ fn main_result() -> Result<(), Box<Error>> {
     println!("Input: {}", DAY_5_INPUT);
     println!("Solution 1: {}\n", steps_to_escape(DAY_5_INPUT)?);
     println!("Solution 2: {}\n", steps_to_escape_next(DAY_5_INPUT)?);
+
+    println!("*** Day 6: Memory Reallocation ***");
+    println!("Input: {}", DAY_6_INPUT);
+    let mut redistributer = RedistributionCycles::new(DAY_6_INPUT);
+    println!("Solution 1: {:?}\n", redistributer.redist()?);
+    println!("Solution 2: {:?}\n", redistributer.loop_size()?);
 
     Ok(())
 }
@@ -1667,3 +1674,5 @@ const DAY_5_INPUT: &str = r#"
 -674
 -647
 "#;
+
+const DAY_6_INPUT: &str = "14	0	15	12	11	11	3	5	1	6	8	4	9	1	8	4";
