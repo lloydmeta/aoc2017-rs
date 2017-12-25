@@ -13,6 +13,9 @@ pub struct RedistributionCycles {
 #[derive(PartialEq, Eq, Debug)]
 pub struct RepeatsAfter(pub u64);
 
+#[derive(PartialEq, Eq, Debug)]
+pub struct LoopCycle(pub u64);
+
 impl RedistributionCycles {
     pub fn new(s: &str) -> RedistributionCycles {
         let init = s.split("\t")
@@ -26,13 +29,23 @@ impl RedistributionCycles {
         }
     }
 
-    pub fn loop_size(&self) -> Result<u64, &str> {
+    /// Continuously runs redistributions on the banks until
+    /// either repetition or we exceed a *lot* of cycles
+    ///
+    /// # Examples
+    /// ```
+    /// # use aoc_2017::day_6::*;
+    /// let mut r = RedistributionCycles::new("0\t2\t7\t0");
+    /// r.redist();
+    /// assert_eq!(r.loop_size(), Ok(LoopCycle(4)));
+    /// ```
+    pub fn loop_size(&self) -> Result<LoopCycle, &str> {
         if self.cycles == 0 {
             Err("redist() not yet run.")
         } else {
             let pos = self.seen_configs.iter().position(|v| *v == self.current);
             match pos {
-                Some(idx) => Ok(self.cycles - idx as u64),
+                Some(idx) => Ok(LoopCycle(self.cycles - idx as u64)),
                 None => Err("No loop found"),
             }
         }
