@@ -1,7 +1,11 @@
 use std::u64;
+use std::collections::HashSet;
 
 pub struct RedistributionCycles {
     seen_configs: Vec<Vec<u64>>,
+    // This is just an optimisation so we can look for seen configs faster than
+    // looping through a Vector
+    seen_configs_hash: HashSet<Vec<u64>>,
     current: Vec<u64>,
     cycles: u64,
 }
@@ -16,6 +20,7 @@ impl RedistributionCycles {
             .collect();
         RedistributionCycles {
             seen_configs: Vec::new(),
+            seen_configs_hash: HashSet::new(),
             current: init,
             cycles: 0,
         }
@@ -43,10 +48,10 @@ impl RedistributionCycles {
     /// assert_eq!(r.redist(), Ok(RepeatsAfter(5)));
     /// ```
     pub fn redist(&mut self) -> Result<RepeatsAfter, String> {
-        while !self.seen_configs.contains(&self.current) && self.cycles <= u64::max_value() {
+        while !self.seen_configs_hash.contains(&self.current) && self.cycles <= u64::max_value() {
             self.redist_once()
         }
-        if !self.seen_configs.contains(&self.current) {
+        if !self.seen_configs_hash.contains(&self.current) {
             Err(format!(
                 "Cycled {} times and couldn't find a repeat",
                 self.cycles
@@ -59,6 +64,7 @@ impl RedistributionCycles {
     fn redist_once(&mut self) -> () {
         // Archive current form
         self.seen_configs.push(self.current.clone());
+        self.seen_configs_hash.insert(self.current.clone());
 
         let mut idx = find_redist_target_idx(&self.current);
         let mut redis_load = self.current[idx];
