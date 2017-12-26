@@ -278,11 +278,19 @@ cntj (57)"#;
     }
 
     #[test]
-    fn smallest_rebalanced_children_weight() {
+    fn smallest_rebalanced_children_weight_dry_test() {
         let tree = Node::from_str(TEST_INPUT).unwrap();
         let with_kids_weights = NodeWithChildrenWeight::build(&tree);
         let rebalance = with_kids_weights.smallest_rebalanced_children_weight();
         assert_eq!(rebalance, Ok(60));
+    }
+
+    #[test]
+    fn smallest_rebalanced_children_weight_real_test() {
+        let tree = Node::from_str(DAY_7_INPUT).unwrap();
+        let with_kids_weights = NodeWithChildrenWeight::build(&tree);
+        let rebalance = with_kids_weights.smallest_rebalanced_children_weight();
+        assert_eq!(rebalance, Ok(2310));
     }
 }
 
