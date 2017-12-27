@@ -6,3 +6,4 @@ authors = ["lloydmeta <lloydmeta@gmail.com>"]
 [dependencies]
 regex = "0.2.3"
 lazy_static = "1.0"
+combine = "3.0.0-alpha.4"

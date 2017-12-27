@@ -10,6 +10,7 @@ use aoc_2017::day_4::*;
 use aoc_2017::day_5::*;
 use aoc_2017::day_6::*;
 use aoc_2017::day_7::*;
+use aoc_2017::day_8::*;
 
 fn main() {
     match main_result() {
@@ -69,6 +70,10 @@ fn main_result() -> Result<(), Box<Error>> {
         "Solution 2: {:?}\n",
         with_kid_weights.smallest_rebalanced_children_weight()
     );
+
+    println!("*** Day 8: I Heard You Like Registers ***");
+    println!("Input: {}", DAY_8_INPUT);
+    println!("Solutions: {:?}\n", simualate_instructions(DAY_8_INPUT));
 
     Ok(())
 }
