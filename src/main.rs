@@ -11,6 +11,7 @@ use aoc_2017::day_5::*;
 use aoc_2017::day_6::*;
 use aoc_2017::day_7::*;
 use aoc_2017::day_8::*;
+use aoc_2017::day_9::*;
 
 fn main() {
     match main_result() {
@@ -74,6 +75,10 @@ fn main_result() -> Result<(), Box<Error>> {
     println!("*** Day 8: I Heard You Like Registers ***");
     println!("Input: {}", DAY_8_INPUT);
     println!("Solutions: {:?}\n", simualate_instructions(DAY_8_INPUT));
+
+    println!("*** Day 9: Stream Processing ***");
+    println!("Input: {}", DAY_9_INPUT);
+    println!("Solution: {}\n", count_groups(DAY_9_INPUT));
 
     Ok(())
 }
