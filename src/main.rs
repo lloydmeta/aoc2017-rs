@@ -13,6 +13,7 @@ use aoc_2017::day_7::*;
 use aoc_2017::day_8::*;
 use aoc_2017::day_9::*;
 use aoc_2017::day_10::*;
+use aoc_2017::day_11::*;
 
 fn main() {
     match main_result() {
@@ -85,6 +86,10 @@ fn main_result() -> Result<(), Box<Error>> {
     println!("Input: {}", DAY_10_INPUT);
     println!("Solution1: {}\n", solve_knot_hash(DAY_10_INPUT)?);
     println!("Solution2: {}\n", hex_knot_hash(DAY_10_INPUT)?);
+
+    println!("*** Day 11: Hex Ed ***");
+    println!("Input: {}", DAY_11_INPUT);
+    println!("Solution1: {:?}\n", hex_steps_from_centre(DAY_11_INPUT));
 
     Ok(())
 }
