@@ -12,6 +12,7 @@ use aoc_2017::day_6::*;
 use aoc_2017::day_7::*;
 use aoc_2017::day_8::*;
 use aoc_2017::day_9::*;
+use aoc_2017::day_10::*;
 
 fn main() {
     match main_result() {
@@ -79,6 +80,11 @@ fn main_result() -> Result<(), Box<Error>> {
     println!("*** Day 9: Stream Processing ***");
     println!("Input: {}", DAY_9_INPUT);
     println!("Solution: {}\n", count_groups(DAY_9_INPUT));
+
+    println!("*** Day 10: Knot Hash ***");
+    println!("Input: {}", DAY_10_INPUT);
+    println!("Solution1: {}\n", solve_knot_hash(DAY_10_INPUT)?);
+    println!("Solution2: {}\n", hex_knot_hash(DAY_10_INPUT)?);
 
     Ok(())
 }
