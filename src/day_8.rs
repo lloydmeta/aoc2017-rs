@@ -155,7 +155,7 @@ macro_rules! number_parser {
 }
 macro_rules! tabs_or_spaces {
     () => {
-        many::<Vec<char>, _>(try(char(' ')).or(char('\n')))
+        many::<Vec<char>, _>(try(char(' ')).or(char('\t')))
     }
 }
 
