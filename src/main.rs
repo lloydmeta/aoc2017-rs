@@ -15,6 +15,7 @@ use aoc_2017::day_9::*;
 use aoc_2017::day_10::*;
 use aoc_2017::day_11::*;
 use aoc_2017::day_12::*;
+use aoc_2017::day_13::*;
 
 fn main() {
     match main_result() {
@@ -97,6 +98,11 @@ fn main_result() -> Result<(), Box<Error>> {
     let programs_in_group = find_programs_in_group(DAY_12_INPUT, ProgramId(0))?;
     println!("Solution1: {}\n", programs_in_group.routes.len());
     println!("Solution2: {}\n", find_all_groups(DAY_12_INPUT)?.len());
+
+    println!("*** Day 13: Packet Scanners ***");
+    println!("Input: {}", DAY_13_INPUT);
+    println!("Solution1: {:?}\n", calculate_trip_result(DAY_13_INPUT)?);
+    println!("Solution2: {:?}\n", find_uncaught_delay(DAY_13_INPUT)?);
 
     Ok(())
 }

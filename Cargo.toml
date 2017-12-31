@@ -7,6 +7,8 @@ authors = ["lloydmeta <lloydmeta@gmail.com>"]
 regex = "0.2.3"
 lazy_static = "1.0"
 combine = "3.0.0-alpha.4"
+rayon = "0.9"
+num-integer = "0.1"
 
 [dev-dependencies]
 maplit = "1.0.0"
