@@ -6,12 +6,22 @@ use combine::*;
 use combine::easy::*;
 use rayon::prelude::*;
 use num_integer::Integer;
+use std::error::Error;
+
+pub fn run() -> Result<(), Box<Error>> {
+    println!("*** Day 13: Packet Scanners ***");
+    println!("Input: {}", DAY_13_INPUT);
+    println!("Solution1: {:?}\n", calculate_trip_result(DAY_13_INPUT)?);
+    println!("Computing this next one could take some time ...");
+    println!("Solution2: {:?}\n", find_uncaught_delay(DAY_13_INPUT)?);
+    Ok(())
+}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
 struct Depth(usize);
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-pub struct Picoseconds(usize);
+struct Picoseconds(usize);
 
 #[derive(Debug, PartialEq, Eq)]
 struct Layer {
@@ -45,18 +55,18 @@ struct GameState<'a> {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Clone, Copy)]
-pub struct GameResult {
+struct GameResult {
     times_caught: usize,
     total_severity: usize,
 }
 
-pub fn calculate_trip_result(s: &str) -> Result<GameResult, Errors<PointerOffset, char, &str>> {
+fn calculate_trip_result(s: &str) -> Result<GameResult, Errors<PointerOffset, char, &str>> {
     let (layers, _) = Layers::parse(s)?;
     let mut game = GameState::from(&layers);
     Ok(game.play())
 }
 
-pub fn find_uncaught_delay(
+fn find_uncaught_delay(
     s: &str,
 ) -> Result<Option<Picoseconds>, Errors<PointerOffset, char, &str>> {
     let (layers, _) = Layers::parse(s)?;
@@ -338,7 +348,7 @@ mod tests {
     }
 }
 
-pub const DAY_13_INPUT: &str = r#"
+const DAY_13_INPUT: &str = r#"
 0: 3
 1: 2
 2: 4

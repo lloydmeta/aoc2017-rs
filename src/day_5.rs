@@ -1,11 +1,19 @@
 const SPLIT_ON: &str = "\n";
 
-pub fn steps_to_escape(inst_str: &str) -> Result<u64, &'static str> {
+pub fn run() -> Result<(), &'static str> {
+    println!("*** Day 5: A Maze of Twisty Trampolines, All Alike ***");
+    println!("Input: {}", DAY_5_INPUT);
+    println!("Solution 1: {}\n", steps_to_escape(DAY_5_INPUT)?);
+    println!("Solution 2: {}\n", steps_to_escape_next(DAY_5_INPUT)?);
+    Ok(())
+}
+
+fn steps_to_escape(inst_str: &str) -> Result<u64, &'static str> {
     let parsed = instructions_str_to_vec(inst_str);
     steps_to_escape_vec_inner(&parsed, |j| j + 1)
 }
 
-pub fn steps_to_escape_next(inst_str: &str) -> Result<u64, &'static str> {
+fn steps_to_escape_next(inst_str: &str) -> Result<u64, &'static str> {
     let parsed = instructions_str_to_vec(inst_str);
     steps_to_escape_vec_inner(&parsed, |j| if j >= 3 { j - 1 } else { j + 1 })
 }
@@ -60,7 +68,7 @@ mod tests {
 
 }
 
-pub const DAY_5_INPUT: &str = r#"
+const DAY_5_INPUT: &str = r#"
 1
 2
 -1

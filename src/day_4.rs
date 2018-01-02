@@ -2,34 +2,29 @@ use std::collections::{HashMap, HashSet};
 
 const PASSPHRASE_SPLIT_WITH: &str = " ";
 
-/// Returns whether or not a given passphrase is valid
-/// (contains no repetitions)
-///
-/// # Examples
-/// ```
-/// # use aoc_2017::day_4::*;
-/// assert_eq!(are_valid_passphrases("aa bb cc dd ee"), true);
-/// assert_eq!(are_valid_passphrases("aa bb cc dd aa"), false);
-/// assert_eq!(are_valid_passphrases("aa bb cc dd aaa"), true);
-/// ```
-pub fn are_valid_passphrases<'a>(passphrases_str: &'a str) -> bool {
+pub fn run() ->  Result<(), &'static str> {
+    println!("*** Day 4: High-Entropy Passphrases ***");
+    println!("Input: {}", DAY_4_INPUT);
+    let passphrases: Vec<_> = DAY_4_INPUT.trim().split("\n").collect();
+    let valid_passphrases_1 = passphrases
+        .iter()
+        .filter(|s| are_valid_passphrases(s))
+        .count();
+    let valid_passphrases_2 = passphrases
+        .iter()
+        .filter(|s| are_valid_passphrases_annagram_free(s))
+        .count();
+    println!("Solution 1: {}\n", valid_passphrases_1);
+    println!("Solution 2: {}\n", valid_passphrases_2);
+    Ok(())
+}
+
+fn are_valid_passphrases<'a>(passphrases_str: &'a str) -> bool {
     let h_set: HashSet<&'a str> = HashSet::new();
     are_valid_passphrases_inner(passphrases_str, h_set)
 }
 
-/// Returns whether or not a given passphrase is valid
-/// (contains no annagrams)
-///
-/// # Examples
-/// ```
-/// # use aoc_2017::day_4::*;
-/// assert_eq!(are_valid_passphrases_annagram_free("abcde fghij"), true);
-/// assert_eq!(are_valid_passphrases_annagram_free("abcde xyz ecdab"), false);
-/// assert_eq!(are_valid_passphrases_annagram_free("a ab abc abd abf abj"), true);
-/// assert_eq!(are_valid_passphrases_annagram_free("iiii oiii ooii oooi oooo"), true);
-/// assert_eq!(are_valid_passphrases_annagram_free("oiii ioii iioi iiio"), false);
-/// ```
-pub fn are_valid_passphrases_annagram_free<'a>(passphrases_str: &'a str) -> bool {
+fn are_valid_passphrases_annagram_free<'a>(passphrases_str: &'a str) -> bool {
     let h_set: HashSet<Vec<(char, u64)>> = HashSet::new();
     are_valid_passphrases_inner(passphrases_str, h_set)
 }
@@ -79,7 +74,7 @@ impl<'a> PassphrasesValidator<'a> for HashSet<Vec<(char, u64)>> {
     }
 }
 
-pub const DAY_4_INPUT: &str = r#"
+const DAY_4_INPUT: &str = r#"
 nyot babgr babgr kqtu kqtu kzshonp ylyk psqk
 iix ewj rojvbkk phrij iix zuajnk tadv givslju ewj bda
 isjur jppvano vctnpjp ngwzdq pxqfrk mnxxes zqwgnd giqh

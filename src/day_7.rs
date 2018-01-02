@@ -5,6 +5,20 @@ const NAME_GROUP: &str = "name";
 const WEIGHT_GROUP: &str = "weight";
 const HOLDING_UP_GROUP: &str = "holding_up";
 
+pub fn run() -> Result<(), &'static str> {
+
+    println!("*** Day 7: Recursive Circus ***");
+    println!("Input: {}", DAY_7_INPUT);
+    let tree = Node::from_str(DAY_7_INPUT)?;
+    println!("Solution 1: {:?}\n", tree.name);
+    let with_kid_weights = NodeWithChildrenWeight::build(&tree);
+    println!(
+        "Solution 2: {:?}\n",
+        with_kid_weights.smallest_rebalanced_children_weight()
+    );
+    Ok(())
+}
+
 lazy_static! {
     static ref ENTRIES_MATCHER: Regex = {
         Regex::new(
@@ -19,7 +33,7 @@ lazy_static! {
 }
 
 #[derive(PartialEq, Eq, Hash, Debug, Clone)]
-pub struct Name(pub String);
+struct Name(String);
 
 #[derive(PartialEq, Eq, Hash, Debug)]
 struct NodeEntry {
@@ -29,21 +43,21 @@ struct NodeEntry {
 }
 
 #[derive(PartialEq, Eq, Hash, Debug)]
-pub struct Node {
-    pub name: Name,
-    pub weight: usize,
-    pub children: Vec<Node>,
+struct Node {
+    name: Name,
+    weight: usize,
+    children: Vec<Node>,
 }
 
 #[derive(PartialEq, Eq, Hash, Debug, Clone)]
-pub struct NodeWithChildrenWeight<'a> {
-    pub node: &'a Node,
-    pub children_with_weights: Vec<NodeWithChildrenWeight<'a>>,
-    pub children_weight: usize,
+struct NodeWithChildrenWeight<'a> {
+    node: &'a Node,
+    children_with_weights: Vec<NodeWithChildrenWeight<'a>>,
+    children_weight: usize,
 }
 
 impl<'a> NodeWithChildrenWeight<'a> {
-    pub fn build(node: &'a Node) -> NodeWithChildrenWeight<'a> {
+    fn build(node: &'a Node) -> NodeWithChildrenWeight<'a> {
         let children_with_weights: Vec<_> = node.children
             .iter()
             .map(NodeWithChildrenWeight::build)
@@ -62,18 +76,11 @@ impl<'a> NodeWithChildrenWeight<'a> {
         }
     }
 
-    pub fn total_weight(&self) -> usize {
+    fn total_weight(&self) -> usize {
         self.children_weight + self.node.weight
     }
 
-    pub fn children_weights(&self) -> Vec<usize> {
-        self.children_with_weights
-            .iter()
-            .map(|cww| cww.children_weight + cww.node.weight)
-            .collect()
-    }
-
-    pub fn smallest_rebalanced_children_weight(&self) -> Result<isize, &'static str> {
+    fn smallest_rebalanced_children_weight(&self) -> Result<isize, &'static str> {
         let children_smallest = self.children_with_weights.iter().fold(
             Err("No need for rebalancing"),
             |acc, next| {
@@ -144,7 +151,7 @@ impl<'a> NodeWithChildrenWeight<'a> {
 }
 
 impl Node {
-    pub fn from_str(s: &str) -> Result<Node, &'static str> {
+    fn from_str(s: &str) -> Result<Node, &'static str> {
         let entries = NodeEntry::parse(s);
         Node::from_entries(entries)
     }
@@ -270,14 +277,6 @@ cntj (57)"#;
     }
 
     #[test]
-    fn node_with_children_weight_test() {
-        let tree = Node::from_str(TEST_INPUT).unwrap();
-        let with_kids_weights = NodeWithChildrenWeight::build(&tree);
-        let kid_weights = with_kids_weights.children_weights();
-        assert_eq!(kid_weights, vec![251, 243, 243]);
-    }
-
-    #[test]
     fn smallest_rebalanced_children_weight_dry_test() {
         let tree = Node::from_str(TEST_INPUT).unwrap();
         let with_kids_weights = NodeWithChildrenWeight::build(&tree);
@@ -294,7 +293,7 @@ cntj (57)"#;
     }
 }
 
-pub const DAY_7_INPUT: &str = r#"fjkfpm (69) -> kohxzh, liwvq, eqkio, xvoyybs
+const DAY_7_INPUT: &str = r#"fjkfpm (69) -> kohxzh, liwvq, eqkio, xvoyybs
 dsiixv (52)
 fhimhm (66)
 mdlubuq (73)

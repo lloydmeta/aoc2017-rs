@@ -5,6 +5,13 @@ use combine::primitives::*;
 use combine::*;
 use combine::easy::*;
 
+pub fn run() ->  Result<(), &'static str> {
+    println!("*** Day 8: I Heard You Like Registers ***");
+    println!("Input: {}", DAY_8_INPUT);
+    println!("Solutions: {:?}\n", simualate_instructions(DAY_8_INPUT));
+    Ok(())
+}
+
 #[derive(Debug, PartialEq, Eq)]
 struct Instruction {
     register: String,
@@ -63,12 +70,12 @@ impl<'a> Simulation<'a> {
 }
 
 #[derive(Debug, PartialEq, Eq)]
-pub struct SimulationResult {
-    pub historical_highest_reg_value: Option<i64>,
-    pub current_highest_reg_value: Option<i64>,
+struct SimulationResult {
+    historical_highest_reg_value: Option<i64>,
+    current_highest_reg_value: Option<i64>,
 }
 
-fn run(s: &mut Simulation) -> () {
+fn run_simulation(s: &mut Simulation) -> () {
     s.instructions.iter().fold(s, |simulation, i| {
         // arg borrow checker..
         let should_proceed = {
@@ -103,27 +110,12 @@ fn run(s: &mut Simulation) -> () {
     });
 }
 
-/// Parses and runs register instructions
-///
-/// # Example
-/// ```
-/// # use aoc_2017::day_8::*;
-/// const TEST_INPUT: &str = r#"
-/// b inc 5 if a > 1
-/// a inc 1 if b < 5
-/// c dec -10 if a >= 1
-/// c inc -20 if c == 10"#;
-///
-/// let results = simualate_instructions(TEST_INPUT).unwrap();
-/// assert_eq!(results.current_highest_reg_value, Some(1));
-/// assert_eq!(results.historical_highest_reg_value, Some(10));
-/// ```
-pub fn simualate_instructions(
+fn simualate_instructions(
     s: &str,
 ) -> Result<SimulationResult, Errors<PointerOffset, char, &str>> {
     let (instructions, _) = Instruction::parse(s)?;
     let mut simulation = Simulation::new(&instructions);
-    run(&mut simulation);
+    run_simulation(&mut simulation);
     Ok(SimulationResult {
         current_highest_reg_value: simulation.current_highest_reg_value,
         historical_highest_reg_value: simulation.historical_highest_reg_value,
@@ -195,7 +187,7 @@ macro_rules! instruction_parser {
 impl Instruction {
     // Wish I could separate this out into functions, but the whole impl trait story in Rust
     // makes that __reaally__ difficult
-    pub fn parse(s: &str) -> Result<(Vec<Instruction>, &str), Errors<PointerOffset, char, &str>> {
+    fn parse(s: &str) -> Result<(Vec<Instruction>, &str), Errors<PointerOffset, char, &str>> {
         let mut instructions_parser =
             skip_many(newline()).with(sep_by(instruction_parser!(), spaces()));
         instructions_parser.easy_parse(s)
@@ -250,7 +242,7 @@ c inc -20 if c == 10"#;
 
 }
 
-pub const DAY_8_INPUT: &str = r#"
+const DAY_8_INPUT: &str = r#"
 ioe dec 890 if qk > -10
 gif inc -533 if qt <= 7
 itw dec 894 if t != 0

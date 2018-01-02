@@ -10,7 +10,15 @@ const HEX_HASH_ROUNDS: usize = 64;
 const SIMPLE_HASH_ROUNDS: usize = 1;
 const BITXOR_CHUNKSIZE: usize = 16;
 
-pub fn solve_knot_hash(s: &str) -> Result<usize, String> {
+pub fn run() -> Result<(), String> {
+    println!("*** Day 10: Knot Hash ***");
+    println!("Input: {}", DAY_10_INPUT);
+    println!("Solution1: {}\n", solve_knot_hash(DAY_10_INPUT)?);
+    println!("Solution2: {}\n", hex_knot_hash(DAY_10_INPUT)?);
+    Ok(())
+}
+
+fn solve_knot_hash(s: &str) -> Result<usize, String> {
     let v = knot_hash(s)?;
     if v.len() > 1 {
         Ok(v[0] * v[1])
@@ -22,15 +30,7 @@ pub fn solve_knot_hash(s: &str) -> Result<usize, String> {
     }
 }
 
-/// Returns the Knot Hash of the given string
-///
-/// # Example
-/// ```
-/// # use aoc_2017::day_10::*;
-/// let input = "88,88,211,106,141,1,78,254,2,111,77,255,90,0,54,205";
-/// assert_eq!(hex_knot_hash(input), Ok("e0387e2ad112b7c2ef344e44885fe4d8".to_string()));
-/// ```
-pub fn hex_knot_hash(s: &str) -> Result<String, String> {
+fn hex_knot_hash(s: &str) -> Result<String, String> {
     let as_u8_padded = as_u8_padded_vec(s);
     let as_hashed = generate_hashes(256, &as_u8_padded, HEX_HASH_ROUNDS)?;
     let dense_hash = to_dense_bitxored(&as_hashed, BITXOR_CHUNKSIZE);
@@ -227,4 +227,4 @@ mod tests {
     }
 }
 
-pub const DAY_10_INPUT: &'static str = "88,88,211,106,141,1,78,254,2,111,77,255,90,0,54,205";
+const DAY_10_INPUT: &'static str = "88,88,211,106,141,1,78,254,2,111,77,255,90,0,54,205";

@@ -1,16 +1,12 @@
-/// Returns the checksum of a matrix
-///
-/// # Examples
-///
-/// ```
-/// # use aoc_2017::day_2::*;
-/// let m =
-/// "5\t1\t9\t5
-/// 7\t5\t3
-/// 2\t4\t6\t8";
-/// assert_eq!(checksum(&m), 18);
-/// ```
-pub fn checksum(s: &str) -> isize {
+pub fn run() -> Result<(), &'static str> {
+    println!("*** Day 2: Corruption Checksum ***");
+
+    println!("Input: {}", DAY_2_INPUT);
+    println!("Solution: {}\n", checksum(DAY_2_INPUT));
+    Ok(())
+}
+
+fn checksum(s: &str) -> isize {
     let m = string_to_matrix(s);
     matrix_checksum(&m)
 }
@@ -69,7 +65,7 @@ mod tests {
 
 }
 
-pub const DAY_2_INPUT: &str = r#"121	59	141	21	120	67	58	49	22	46	56	112	53	111	104	130
+const DAY_2_INPUT: &str = r#"121	59	141	21	120	67	58	49	22	46	56	112	53	111	104	130
 1926	1910	760	2055	28	2242	146	1485	163	976	1842	1982	137	1387	162	789
 4088	258	2060	1014	4420	177	4159	194	2794	4673	4092	681	174	2924	170	3548
 191	407	253	192	207	425	580	231	197	382	404	472	164	571	500	216

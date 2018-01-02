@@ -1,21 +1,26 @@
 extern crate aoc_2017;
+extern crate clap;
 
+use std::str::FromStr;
+use std::fmt::Display;
+
+use clap::{App, Arg, ArgMatches};
 use std::error::Error;
 use std::process::exit;
 
-use aoc_2017::day_1::*;
-use aoc_2017::day_2::*;
-use aoc_2017::day_3::*;
-use aoc_2017::day_4::*;
-use aoc_2017::day_5::*;
-use aoc_2017::day_6::*;
-use aoc_2017::day_7::*;
-use aoc_2017::day_8::*;
-use aoc_2017::day_9::*;
-use aoc_2017::day_10::*;
-use aoc_2017::day_11::*;
-use aoc_2017::day_12::*;
-use aoc_2017::day_13::*;
+use aoc_2017::day_1;
+use aoc_2017::day_2;
+use aoc_2017::day_3;
+use aoc_2017::day_4;
+use aoc_2017::day_5;
+use aoc_2017::day_6;
+use aoc_2017::day_7;
+use aoc_2017::day_8;
+use aoc_2017::day_9;
+use aoc_2017::day_10;
+use aoc_2017::day_11;
+use aoc_2017::day_12;
+use aoc_2017::day_13;
 
 fn main() {
     match main_result() {
@@ -28,81 +33,72 @@ fn main() {
 }
 
 fn main_result() -> Result<(), Box<Error>> {
-    println!("*** Day 1: Inverse Captcha ***");
-    println!("Input: {}", DAY_1_INPUT);
-    println!("Solution: {}\n", sum_match_nexts(DAY_1_INPUT));
-
-    println!("*** Day 2: Corruption Checksum ***");
-
-    println!("Input: {}", DAY_2_INPUT);
-    println!("Solution: {}\n", checksum(DAY_2_INPUT));
-
-    println!("*** Day 3: Spiral Memory ***");
-    println!("Input: {}", DAY_3_INPUT);
-    println!("Solution: {}\n", steps_to_centre(DAY_3_INPUT)?);
-
-    println!("*** Day 4: High-Entropy Passphrases ***");
-    println!("Input: {}", DAY_4_INPUT);
-    let passphrases: Vec<_> = DAY_4_INPUT.trim().split("\n").collect();
-    let valid_passphrases_1 = passphrases
-        .iter()
-        .filter(|s| are_valid_passphrases(s))
-        .count();
-    let valid_passphrases_2 = passphrases
-        .iter()
-        .filter(|s| are_valid_passphrases_annagram_free(s))
-        .count();
-    println!("Solution 1: {}\n", valid_passphrases_1);
-    println!("Solution 2: {}\n", valid_passphrases_2);
-
-    println!("*** Day 5: A Maze of Twisty Trampolines, All Alike ***");
-    println!("Input: {}", DAY_5_INPUT);
-    println!("Solution 1: {}\n", steps_to_escape(DAY_5_INPUT)?);
-    println!("Solution 2: {}\n", steps_to_escape_next(DAY_5_INPUT)?);
-
-    println!("*** Day 6: Memory Reallocation ***");
-    println!("Input: {}", DAY_6_INPUT);
-    let mut redistributer = RedistributionCycles::new(DAY_6_INPUT);
-    println!("Solution 1: {:?}\n", redistributer.redist()?);
-    println!("Solution 2: {:?}\n", redistributer.loop_size()?);
-
-    println!("*** Day 7: Recursive Circus ***");
-    println!("Input: {}", DAY_7_INPUT);
-    let tree = Node::from_str(DAY_7_INPUT)?;
-    println!("Solution 1: {:?}\n", tree.name);
-    let with_kid_weights = NodeWithChildrenWeight::build(&tree);
-    println!(
-        "Solution 2: {:?}\n",
-        with_kid_weights.smallest_rebalanced_children_weight()
-    );
-
-    println!("*** Day 8: I Heard You Like Registers ***");
-    println!("Input: {}", DAY_8_INPUT);
-    println!("Solutions: {:?}\n", simualate_instructions(DAY_8_INPUT));
-
-    println!("*** Day 9: Stream Processing ***");
-    println!("Input: {}", DAY_9_INPUT);
-    println!("Solution: {}\n", count_groups(DAY_9_INPUT));
-
-    println!("*** Day 10: Knot Hash ***");
-    println!("Input: {}", DAY_10_INPUT);
-    println!("Solution1: {}\n", solve_knot_hash(DAY_10_INPUT)?);
-    println!("Solution2: {}\n", hex_knot_hash(DAY_10_INPUT)?);
-
-    println!("*** Day 11: Hex Ed ***");
-    println!("Input: {}", DAY_11_INPUT);
-    println!("Solution1: {:?}\n", hex_steps_from_centre(DAY_11_INPUT));
-
-    println!("*** Day 12: Digital Plumber ***");
-    println!("Input: {}", DAY_12_INPUT);
-    let programs_in_group = find_programs_in_group(DAY_12_INPUT, ProgramId(0))?;
-    println!("Solution1: {}\n", programs_in_group.routes.len());
-    println!("Solution2: {}\n", find_all_groups(DAY_12_INPUT)?.len());
-
-    println!("*** Day 13: Packet Scanners ***");
-    println!("Input: {}", DAY_13_INPUT);
-    println!("Solution1: {:?}\n", calculate_trip_result(DAY_13_INPUT)?);
-    println!("Solution2: {:?}\n", find_uncaught_delay(DAY_13_INPUT)?);
-
+    let matches = App::new("Advent of Code 2017")
+        .version(version().as_str())
+        .about("Solutions to AoC 2017 !")
+        .arg(
+            Arg::with_name("day")
+                .required(true)
+                .takes_value(true)
+                .index(1)
+                .help("Which day's solution you want to run"),
+        )
+        .get_matches();
+    match get_number("day", Some(0), &matches) {
+        1 => day_1::run()?,
+        2 => day_2::run()?,
+        3 => day_3::run()?,
+        4 => day_4::run()?,
+        5 => day_5::run()?,
+        6 => day_6::run()?,
+        7 => day_7::run()?,
+        8 => day_8::run()?,
+        9 => day_9::run()?,
+        10 => day_10::run()?,
+        11 => day_11::run()?,
+        12 => day_12::run()?,
+        13 => day_13::run()?,
+        other => Err(format!("Invalid day: {}", other))?,
+    }
     Ok(())
+}
+
+fn version() -> String {
+    let (maj, min, pat) = (
+        option_env!("CARGO_PKG_VERSION_MAJOR"),
+        option_env!("CARGO_PKG_VERSION_MINOR"),
+        option_env!("CARGO_PKG_VERSION_PATCH"),
+    );
+    match (maj, min, pat) {
+        (Some(maj), Some(min), Some(pat)) => format!("{}.{}.{}", maj, min, pat),
+        _ => "".to_owned(),
+    }
+}
+
+
+fn get_number<'a, A>(name: &str, maybe_min: Option<A>, matches: &ArgMatches<'a>) -> A
+where
+    A: FromStr + PartialOrd + Display + Copy,
+    <A as FromStr>::Err: std::fmt::Debug,
+{
+    matches
+        .value_of(name)
+        .and_then(|s| s.parse::<A>().ok())
+        .and_then(|u| match maybe_min {
+            Some(min) => if u > min {
+                Some(u)
+            } else {
+                None
+            },
+            _ => Some(u),
+        })
+        .expect(
+            &{
+                if let Some(min) = maybe_min {
+                    format!("{} should be a positive number greater than {}.", name, min)
+                } else {
+                    format!("{} should be a positive number.", name)
+                }
+            }[..],
+        )
 }

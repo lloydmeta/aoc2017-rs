@@ -4,9 +4,20 @@ use combine::char::*;
 use combine::primitives::*;
 use combine::*;
 use combine::easy::*;
+use std::error::Error;
+
+pub fn run() -> Result<(), Box<Error>> {
+
+    println!("*** Day 12: Digital Plumber ***");
+    println!("Input: {}", DAY_12_INPUT);
+    let programs_in_group = find_programs_in_group(DAY_12_INPUT, ProgramId(0))?;
+    println!("Solution1: {}\n", programs_in_group.routes.len());
+    println!("Solution2: {}\n", find_all_groups(DAY_12_INPUT)?.len());
+    Ok(())
+}
 
 #[derive(Copy, Clone, PartialEq, Eq, Debug, Hash)]
-pub struct ProgramId(pub usize);
+struct ProgramId(usize);
 
 #[derive(PartialEq, Eq, Debug, Hash)]
 struct Pipe {
@@ -19,7 +30,7 @@ struct Pipes {
     topology: HashMap<ProgramId, Vec<ProgramId>>,
 }
 
-pub fn find_programs_in_group(
+fn find_programs_in_group(
     input: &str,
     target_id: ProgramId,
 ) -> Result<Group, Errors<PointerOffset, char, &str>> {
@@ -27,7 +38,7 @@ pub fn find_programs_in_group(
     Ok(group(&pipes, target_id))
 }
 
-pub fn find_all_groups(input: &str) -> Result<Vec<Group>, Errors<PointerOffset, char, &str>> {
+fn find_all_groups(input: &str) -> Result<Vec<Group>, Errors<PointerOffset, char, &str>> {
     let (pipes, _) = Pipes::parse(input)?;
     let groups: Vec<Group> = pipes
         .topology
@@ -63,9 +74,9 @@ impl Pipes {
 }
 
 #[derive(PartialEq, Eq, Debug)]
-pub struct Group {
-    pub id: ProgramId,
-    pub routes: HashMap<ProgramId, Vec<ProgramId>>,
+struct Group {
+    id: ProgramId,
+    routes: HashMap<ProgramId, Vec<ProgramId>>,
 }
 
 fn group(pipes: &Pipes, id: ProgramId) -> Group {
@@ -303,7 +314,7 @@ mod tests {
     }
 }
 
-pub const DAY_12_INPUT: &str = r##"
+const DAY_12_INPUT: &str = r##"
 0 <-> 1352, 1864
 1 <-> 430
 2 <-> 1202, 1416

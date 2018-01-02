@@ -1,7 +1,16 @@
 use std::u64;
 use std::collections::HashSet;
 
-pub struct RedistributionCycles {
+pub fn run() -> Result<(), String> {
+    println!("*** Day 6: Memory Reallocation ***");
+    println!("Input: {}", DAY_6_INPUT);
+    let mut redistributer = RedistributionCycles::new(DAY_6_INPUT);
+    println!("Solution 1: {:?}\n", redistributer.redist()?);
+    println!("Solution 2: {:?}\n", redistributer.loop_size()?);
+    Ok(())
+}
+
+struct RedistributionCycles {
     seen_configs: Vec<Vec<u64>>,
     // This is just an optimisation so we can look for seen configs faster than
     // looping through a Vector
@@ -11,13 +20,13 @@ pub struct RedistributionCycles {
 }
 
 #[derive(PartialEq, Eq, Debug)]
-pub struct RepeatsAfter(pub u64);
+struct RepeatsAfter(u64);
 
 #[derive(PartialEq, Eq, Debug)]
-pub struct LoopCycle(pub u64);
+struct LoopCycle(u64);
 
 impl RedistributionCycles {
-    pub fn new(s: &str) -> RedistributionCycles {
+    fn new(s: &str) -> RedistributionCycles {
         let init = s.split("\t")
             .filter_map(|s| s.trim().parse().ok())
             .collect();
@@ -29,17 +38,7 @@ impl RedistributionCycles {
         }
     }
 
-    /// Continuously runs redistributions on the banks until
-    /// either repetition or we exceed a *lot* of cycles
-    ///
-    /// # Examples
-    /// ```
-    /// # use aoc_2017::day_6::*;
-    /// let mut r = RedistributionCycles::new("0\t2\t7\t0");
-    /// r.redist().unwrap();
-    /// assert_eq!(r.loop_size(), Ok(LoopCycle(4)));
-    /// ```
-    pub fn loop_size(&self) -> Result<LoopCycle, &str> {
+    fn loop_size(&self) -> Result<LoopCycle, &str> {
         if self.cycles == 0 {
             Err("redist() not yet run.")
         } else {
@@ -51,16 +50,7 @@ impl RedistributionCycles {
         }
     }
 
-    /// Continuously runs redistributions on the banks until
-    /// either repetition or we exceed a *lot* of cycles
-    ///
-    /// # Examples
-    /// ```
-    /// # use aoc_2017::day_6::*;
-    /// let mut r = RedistributionCycles::new("0\t2\t7\t0");
-    /// assert_eq!(r.redist(), Ok(RepeatsAfter(5)));
-    /// ```
-    pub fn redist(&mut self) -> Result<RepeatsAfter, String> {
+    fn redist(&mut self) -> Result<RepeatsAfter, String> {
         while !self.seen_configs_hash.contains(&self.current) && self.cycles <= u64::max_value() {
             self.redist_once()
         }
@@ -123,4 +113,4 @@ mod tests {
     }
 }
 
-pub const DAY_6_INPUT: &str = "14	0	15	12	11	11	3	5	1	6	8	4	9	1	8	4";
+const DAY_6_INPUT: &str = "14	0	15	12	11	11	3	5	1	6	8	4	9	1	8	4";

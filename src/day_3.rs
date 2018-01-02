@@ -1,15 +1,11 @@
-/// Given an index in a number spiral, return the number of
-/// steps to the centre
-///
-/// # Examples
-/// ```
-/// # use aoc_2017::day_3::*;
-/// assert_eq!(steps_to_centre(1).unwrap(), 0);
-/// assert_eq!(steps_to_centre(12).unwrap(), 3);
-/// assert_eq!(steps_to_centre(23).unwrap(), 2);
-/// assert_eq!(steps_to_centre(1024).unwrap(), 31);
-/// ```
-pub fn steps_to_centre(idx: u64) -> Result<u64, &'static str> {
+pub fn run() -> Result<(), &'static str> {
+    println!("*** Day 3: Spiral Memory ***");
+    println!("Input: {}", DAY_3_INPUT);
+    println!("Solution: {}\n", steps_to_centre(DAY_3_INPUT)?);
+    Ok(())
+}
+
+fn steps_to_centre(idx: u64) -> Result<u64, &'static str> {
     let Coords { x, y } = idx_to_coords(idx)?;
     let total = x.abs() + y.abs();
     Ok(total as u64)
@@ -80,4 +76,4 @@ mod tests {
 
 }
 
-pub const DAY_3_INPUT: u64 = 368078;
+const DAY_3_INPUT: u64 = 368078;
