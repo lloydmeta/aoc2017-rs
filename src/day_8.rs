@@ -5,7 +5,7 @@ use combine::primitives::*;
 use combine::*;
 use combine::easy::*;
 
-pub fn run() ->  Result<(), &'static str> {
+pub fn run() -> Result<(), &'static str> {
     println!("*** Day 8: I Heard You Like Registers ***");
     println!("Input: {}", DAY_8_INPUT);
     println!("Solutions: {:?}\n", simualate_instructions(DAY_8_INPUT));
@@ -110,9 +110,7 @@ fn run_simulation(s: &mut Simulation) -> () {
     });
 }
 
-fn simualate_instructions(
-    s: &str,
-) -> Result<SimulationResult, Errors<PointerOffset, char, &str>> {
+fn simualate_instructions(s: &str) -> Result<SimulationResult, Errors<PointerOffset, char, &str>> {
     let (instructions, _) = Instruction::parse(s)?;
     let mut simulation = Simulation::new(&instructions);
     run_simulation(&mut simulation);

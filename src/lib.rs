@@ -1,11 +1,12 @@
-extern crate regex;
-extern crate rayon;
 extern crate num_integer;
+extern crate rayon;
+extern crate regex;
 
 #[macro_use]
 extern crate lazy_static;
 
-#[cfg(test)] #[macro_use]
+#[cfg(test)]
+#[macro_use]
 extern crate maplit;
 
 extern crate combine;
@@ -25,3 +26,4 @@ pub mod day_10;
 pub mod day_11;
 pub mod day_12;
 pub mod day_13;
+pub mod day_14;

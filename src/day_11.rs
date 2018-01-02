@@ -24,7 +24,7 @@ use std::str::FromStr;
 
 const HEX_AXIAL_ORIGIN: HexAxialCoord = HexAxialCoord { q: 0, r: 0 };
 
-pub fn run() ->  Result<(), &'static str> {
+pub fn run() -> Result<(), &'static str> {
     println!("*** Day 11: Hex Ed ***");
     println!("Input: {}", DAY_11_INPUT);
     println!("Solution1: {:?}\n", hex_steps_from_centre(DAY_11_INPUT));

@@ -6,7 +6,7 @@ const OPEN_GARBAGE: char = '<';
 const CLOSE_GARBAGE: char = '>';
 const SKIP_NEXT_GARBAGE: char = '!';
 
-pub fn run() ->  Result<(), &'static str> {
+pub fn run() -> Result<(), &'static str> {
     println!("*** Day 9: Stream Processing ***");
     println!("Input: {}", DAY_9_INPUT);
     println!("Solution: {}\n", count_groups(DAY_9_INPUT));

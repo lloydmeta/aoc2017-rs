@@ -6,7 +6,6 @@ const WEIGHT_GROUP: &str = "weight";
 const HOLDING_UP_GROUP: &str = "holding_up";
 
 pub fn run() -> Result<(), &'static str> {
-
     println!("*** Day 7: Recursive Circus ***");
     println!("Input: {}", DAY_7_INPUT);
     let tree = Node::from_str(DAY_7_INPUT)?;

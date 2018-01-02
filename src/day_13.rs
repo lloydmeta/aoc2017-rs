@@ -66,9 +66,7 @@ fn calculate_trip_result(s: &str) -> Result<GameResult, Errors<PointerOffset, ch
     Ok(game.play())
 }
 
-fn find_uncaught_delay(
-    s: &str,
-) -> Result<Option<Picoseconds>, Errors<PointerOffset, char, &str>> {
+fn find_uncaught_delay(s: &str) -> Result<Option<Picoseconds>, Errors<PointerOffset, char, &str>> {
     let (layers, _) = Layers::parse(s)?;
     let clean_state = GameState::from(&layers);
     let maybe_viable_delay = (0..usize::max_value())
@@ -86,14 +84,13 @@ fn find_uncaught_delay(
 
 impl<'a> GameState<'a> {
     fn play(&mut self) -> GameResult {
-        let highest_depth = self.layers
-            .0
-            .iter()
-            .fold(Depth(0), |acc, next| if next.depth > acc {
+        let highest_depth = self.layers.0.iter().fold(Depth(0), |acc, next| {
+            if next.depth > acc {
                 next.depth
             } else {
                 acc
-            });
+            }
+        });
         while self.current_depth <= highest_depth {
             self.advance();
         }
@@ -181,7 +178,6 @@ impl<'a> LayerState<'a> {
         }
     }
 }
-
 
 impl<'a> LayerStates<'a> {
     fn scanner_location(&self, depth: Depth) -> Option<usize> {

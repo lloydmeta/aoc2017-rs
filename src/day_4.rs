@@ -2,7 +2,7 @@ use std::collections::{HashMap, HashSet};
 
 const PASSPHRASE_SPLIT_WITH: &str = " ";
 
-pub fn run() ->  Result<(), &'static str> {
+pub fn run() -> Result<(), &'static str> {
     println!("*** Day 4: High-Entropy Passphrases ***");
     println!("Input: {}", DAY_4_INPUT);
     let passphrases: Vec<_> = DAY_4_INPUT.trim().split("\n").collect();

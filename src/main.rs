@@ -21,6 +21,7 @@ use aoc_2017::day_10;
 use aoc_2017::day_11;
 use aoc_2017::day_12;
 use aoc_2017::day_13;
+use aoc_2017::day_14;
 
 fn main() {
     match main_result() {
@@ -58,6 +59,7 @@ fn main_result() -> Result<(), Box<Error>> {
         11 => day_11::run()?,
         12 => day_12::run()?,
         13 => day_13::run()?,
+        14 => day_14::run()?,
         other => Err(format!("Invalid day: {}", other))?,
     }
     Ok(())
@@ -74,7 +76,6 @@ fn version() -> String {
         _ => "".to_owned(),
     }
 }
-
 
 fn get_number<'a, A>(name: &str, maybe_min: Option<A>, matches: &ArgMatches<'a>) -> A
 where

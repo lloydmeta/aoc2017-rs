@@ -7,7 +7,6 @@ use combine::easy::*;
 use std::error::Error;
 
 pub fn run() -> Result<(), Box<Error>> {
-
     println!("*** Day 12: Digital Plumber ***");
     println!("Input: {}", DAY_12_INPUT);
     let programs_in_group = find_programs_in_group(DAY_12_INPUT, ProgramId(0))?;
