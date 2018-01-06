@@ -6,8 +6,14 @@ pub fn run() -> Result<(), &'static str> {
         "Input steps:[{}] step_size:[{}]",
         DAY_17_STEPS, DAY_17_STEP_SIZE
     );
-    println!("Solution1: {:?}", after_target(DAY_17_STEPS, DAY_17_STEP_SIZE, 2017));
-    println!("Solution2: {:?}", after_nth(50_000_000, DAY_17_STEP_SIZE, 0));
+    println!(
+        "Solution1: {:?}",
+        after_target(DAY_17_STEPS, DAY_17_STEP_SIZE, 2017)
+    );
+    println!(
+        "Solution2: {:?}",
+        after_nth(50_000_000, DAY_17_STEP_SIZE, 0)
+    );
     Ok(())
 }
 
@@ -80,7 +86,10 @@ mod tests {
 
     #[test]
     fn after_target_test() {
-        assert_eq!(after_target(DAY_17_STEPS, DAY_17_STEP_SIZE, 2017), Some(417));
+        assert_eq!(
+            after_target(DAY_17_STEPS, DAY_17_STEP_SIZE, 2017),
+            Some(417)
+        );
     }
 
     #[test]
