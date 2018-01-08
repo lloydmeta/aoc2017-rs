@@ -38,12 +38,12 @@ fn solution_2(ops: &Vec<Op>) -> Result<Option<usize>, Box<Error>> {
     let fibre_1 = rts.fibres.iter().find(|f| f.id == 1);
     let fibre_1_snd_count = fibre_1.map(|f| {
         let log = &f.log;
-        log.iter().filter(|ev| {
-            match ev.op {
-                SndReg { ..} | SndNum {..} => true,
-                _ => false
-            }
-        }).count()
+        log.iter()
+            .filter(|ev| match ev.op {
+                SndReg { .. } | SndNum { .. } => true,
+                _ => false,
+            })
+            .count()
     });
     Ok(fibre_1_snd_count)
 }

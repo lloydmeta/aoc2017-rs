@@ -26,6 +26,7 @@ use aoc_2017::day_15;
 use aoc_2017::day_16;
 use aoc_2017::day_17;
 use aoc_2017::day_18;
+use aoc_2017::day_19;
 
 fn main() {
     match main_result() {
@@ -68,6 +69,7 @@ fn main_result() -> Result<(), Box<Error>> {
         16 => day_16::run()?,
         17 => day_17::run()?,
         18 => day_18::run()?,
+        19 => day_19::run()?,
         other => Err(format!("Invalid day: {}", other))?,
     }
     Ok(())
