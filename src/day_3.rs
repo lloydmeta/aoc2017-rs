@@ -1,3 +1,5 @@
+const DAY_3_INPUT: u64 = 368078;
+
 pub fn run() -> Result<(), &'static str> {
     println!("*** Day 3: Spiral Memory ***");
     println!("Input: {}", DAY_3_INPUT);
@@ -75,5 +77,3 @@ mod tests {
     }
 
 }
-
-const DAY_3_INPUT: u64 = 368078;

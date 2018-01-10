@@ -1,6 +1,6 @@
 use day_19::Direction::*;
 
-const DAY_19_INPUT: &'static str = include_str!("data/day_19_real_input");
+const DAY_19_INPUT: &'static str = include_str!("../data/day_19_real_input");
 
 pub fn run() -> Result<(), &'static str> {
     println!("*** Day 19: A Series of Tubes ***");
@@ -158,10 +158,10 @@ impl<'a> TurnNavigator<'a> {
                     inner_other_dir_coord: &mut Option<Coord>,
                 ) {
                     *inner_found_cursor = Some(Cursor {
-                            coord: pivot,
-                            direction: inner_dir,
-                        });
-                        *inner_this_dir_coord = None;
+                        coord: pivot,
+                        direction: inner_dir,
+                    });
+                    *inner_this_dir_coord = None;
                     *inner_other_dir_coord = None;
                 };
                 match dir_char {
@@ -253,8 +253,8 @@ impl<'a> MazeRunner<'a> {
 
     fn next_cursor(&self) -> Option<Cursor> {
         self.cursor.and_then(|current| {
-            next_coord(self.maze, current.coord, current.direction).and_then(
-                |next_coord| match self.maze.char_at(next_coord) {
+            next_coord(self.maze, current.coord, current.direction).and_then(|next_coord| {
+                match self.maze.char_at(next_coord) {
                     Some(w) if w.is_whitespace() => None,
                     None => None,
                     Some('+') => {
@@ -269,8 +269,8 @@ impl<'a> MazeRunner<'a> {
                         coord: next_coord,
                         direction: current.direction,
                     }),
-                },
-            )
+                }
+            })
         })
     }
 }
@@ -300,7 +300,7 @@ mod tests {
 
     use day_19::*;
 
-    const TEST_INPUT: &'static str = include_str!("data/day_19_test_input");
+    const TEST_INPUT: &'static str = include_str!("../data/day_19_test_input");
 
     #[test]
     fn from_test_input_str_test() {

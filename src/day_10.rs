@@ -1,5 +1,7 @@
 use common::*;
 
+const DAY_10_INPUT: &'static str = include_str!("../data/day_10_input");
+
 pub fn run() -> Result<(), String> {
     println!("*** Day 10: Knot Hash ***");
     println!("Input: {}", DAY_10_INPUT);
@@ -19,8 +21,6 @@ fn solve_knot_hash(s: &str) -> Result<usize, String> {
         ))
     }
 }
-
-const DAY_10_INPUT: &'static str = "88,88,211,106,141,1,78,254,2,111,77,255,90,0,54,205";
 
 #[cfg(test)]
 mod tests {

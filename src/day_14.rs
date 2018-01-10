@@ -2,7 +2,7 @@ use common::hex_knot_hash;
 use std::collections::HashMap;
 use std::usize;
 
-const DAY_14_INPUT: &'static str = "jxqlasbh";
+const DAY_14_INPUT: &'static str = include_str!("../data/day_14_input");
 
 const MAX_ROWS: usize = 128;
 const OCCUPIED_CHAR: char = '1';

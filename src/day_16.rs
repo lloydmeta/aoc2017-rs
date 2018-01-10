@@ -6,6 +6,8 @@ use combine::easy::*;
 use std::collections::HashMap;
 use std::error::Error;
 
+const DAY_16_INPUT: &'static str = include_str!("../data/day_16_input");
+
 pub fn run() -> Result<(), Box<Error>> {
     println!("*** Day 16: Permutation Promenade ***");
     println!("Input {:?}", DAY_16_INPUT);
@@ -190,5 +192,3 @@ mod tests {
         );
     }
 }
-
-const DAY_16_INPUT: &'static str = include_str!("data/day_16_input");

@@ -1,5 +1,6 @@
 const DAY_17_STEP_SIZE: usize = 348;
 const DAY_17_STEPS: usize = 2017;
+
 pub fn run() -> Result<(), &'static str> {
     println!("*** Day 17: Spinlock ***");
     println!(

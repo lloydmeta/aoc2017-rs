@@ -1,6 +1,8 @@
 use std::u64;
 use std::collections::HashSet;
 
+const DAY_6_INPUT: &str = include_str!("../data/day_6_input");
+
 pub fn run() -> Result<(), String> {
     println!("*** Day 6: Memory Reallocation ***");
     println!("Input: {}", DAY_6_INPUT);
@@ -112,5 +114,3 @@ mod tests {
         assert_eq!(runner.redist(), Ok(RepeatsAfter(5)));
     }
 }
-
-const DAY_6_INPUT: &str = "14	0	15	12	11	11	3	5	1	6	8	4	9	1	8	4";

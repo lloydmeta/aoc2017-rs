@@ -1,5 +1,7 @@
 const RADIX: u32 = 10;
 
+const DAY_1_INPUT: &str = include_str!("../data/day_1_input");
+
 pub fn run() -> Result<(), &'static str> {
     println!("*** Day 1: Inverse Captcha ***");
     println!("Input: {}", DAY_1_INPUT);
@@ -42,5 +44,3 @@ mod tests {
     }
 
 }
-
-const DAY_1_INPUT: &str = include_str!("data/day_1_input");
