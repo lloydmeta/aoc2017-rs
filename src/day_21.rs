@@ -638,6 +638,7 @@ mod tests {
                 Coord { i: 0, j: 0 } => Coord { i: 0, j: 0 }
             ],
         };
+        assert_eq!(expansion_data1, expected1);
         let m2 = SquareMatrix::new(&vec![
             vec![On, Off, Off, On],
             vec![Off, On, Off, Off],

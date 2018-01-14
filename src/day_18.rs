@@ -16,6 +16,7 @@ const DAY_18_INPUT: &'static str = include_str!("../data/day_18_input");
 pub fn run() -> Result<(), Box<Error>> {
     println!("*** Day 18: Duet ***");
     let ops = Op::parse_many(DAY_18_INPUT)?.0;
+    println!("Input: {}", DAY_18_INPUT);
     println!("solution 1: {:?}", solution_1(&ops));
     println!("solution 2: {:?}", solution_2(&ops)?);
     Ok(())
@@ -242,7 +243,7 @@ where
         self.registers.get(&reg).map(|x| *x).unwrap_or(DEFAULT)
     }
 
-    #[test]
+    #[allow(dead_code)]
     fn print_debug(&self) -> () {
         println!(" ~~ State info ~~");
         println!("current_idx: {}", self.current_idx);
@@ -469,7 +470,7 @@ impl Fibre {
         self.registers.get(&reg).map(|x| *x).unwrap_or(DEFAULT)
     }
 
-    #[test]
+    #[allow(dead_code)]
     fn print_debug(&self) -> () {
         println!(" ~~ State info ~~");
         println!("current_idx: {}", self.current_idx);
