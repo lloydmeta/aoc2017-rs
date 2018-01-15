@@ -4,13 +4,17 @@ version = "0.1.0"
 authors = ["lloydmeta <lloydmeta@gmail.com>"]
 
 [dependencies]
-regex = "0.2.3"
+regex = "0.2"
 lazy_static = "1.0"
 combine = "3.0.0-alpha.4"
 rayon = "0.9"
 num-integer = "0.1"
-clap = "2.29.0"
-
+clap = "2.29"
 
 [dev-dependencies]
-maplit = "1.0.0"
+maplit = "1.0"
+
+[profile.release]
+opt-level = 3
+debug = false
+lto = true
